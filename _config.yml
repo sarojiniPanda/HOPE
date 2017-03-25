@@ -1,7 +1,7 @@
 # Site settings
 title: Alexis Cook
 description: 'Jekyll-Uno - a minimal, responsive theme for Jekyll'
-baseurl: 'https://alexisbcook.github.io'
+baseurl: 'https://alexisbcook.github.io/'
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
