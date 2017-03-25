@@ -1,7 +1,8 @@
 # Site settings
 title: Alexis Cook
 description: 'Deep Learning Professional'
-baseurl: 'https://alexisbcook.github.io/'
+url: 'https://alexisbcook.github.io'
+baseurl: '/'
 google_analytics: 'UA-83225772-1'
 disqus_shortname: 'alexisbcook-github-io'
 
