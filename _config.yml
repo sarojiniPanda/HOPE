@@ -2,16 +2,16 @@
 title: Alexis Cook
 description: 'Jekyll-Uno - a minimal, responsive theme for Jekyll'
 baseurl: 'https://alexisbcook.github.io/'
-# google_analytics: 'UA-XXXXXX-X'
-# disqus_shortname: 'your-disqus-name'
+google_analytics: 'UA-83225772-1'
+disqus_shortname: 'alexisbcook-github-io'
 
 author:
   name: 'Alexis Cook'
   email: alexis.cook@gmail.com
-  twitter_username: joshgerdes
-  facebook_username: joshgerdes
-  github_username:  joshgerdes
-  linkedin_username:  joshgerdes
+  twitter_username: alexis_b_cook
+  facebook_username: alexis.cook
+  github_username:  alexisbcook
+  linkedin_username:  alexis-cook-a6127753
 
 defaults:
   -
