@@ -26,7 +26,9 @@ defaults:
 destination: _site
 paginate: 10
 permalink: /:year/:title/
-markdown: redcarpet
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
 highlighter: rouge
 
 kramdown:
