@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Global Average Pooling Layers for Object Localization</title>
+  <meta name="description" content="Deep Learning Professional">
+  <meta name="author" content="Alexis Cook">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Alexis Cook">
+  <meta name="twitter:description" content="Deep Learning Professional">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Alexis Cook">
+  <meta property="og:description" content="Deep Learning Professional">
+
+<link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+
+ <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/images/favicons/android-icon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000//2016/global-average-pooling-layers-for-object-localization/">
+  <link rel="alternate" type="application/rss+xml" title="Alexis Cook" href="/feed.xml">
+</head>
+
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Alexis Cook">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Alexis Cook</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">Deep Learning Professional</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Alexis Cook blog" class="blog-button">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/alexis_b_cook" title="@alexis_b_cook on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Facebook -->
+              <li class="navigation__item">
+                <a href="http://fb.me/alexis.cook" title="alexis.cook on Facebook" target="_blank">
+                  <i class="icon icon-social-facebook"></i>
+                  <span class="label">Facebook</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/alexis-cook-a6127753" title="alexis-cook-a6127753 on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/alexisbcook" title="alexisbcook on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:alexis.cook@gmail.com" title="Email alexis.cook@gmail.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="9 Apr 2016" class="post-meta__date date">9 Apr 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#keras">keras</a> <a href="/tags/#localization">localization</a> </span>
+    </div>
+    <h1 class="post-title">Global Average Pooling Layers for Object Localization</h1>
+  </header>
+  
+
+  <section class="post">
+    <p>For classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers, where the final dense layer has a softmax activation function and a node for each potential object category.</p>
+
+<p>As an example, consider the VGG-16 model architecture, depicted in the figure below.</p>
+
+<p>(put picture of VGG-16 model)</p>
+
+<p>We can also summarize the layers of the VGG-16 model by executing the following line of code in the terminal:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s">'from keras.applications.vgg16 import VGG16; VGG16().summary()'</span>
+</code></pre>
+</div>
+
+<p>Your output should appear as follows:</p>
+
+<p>(put vgg-16 layers description here)</p>
+
+<p>You will notice five blocks of (two to three) convolutional layers followed by a max pooling layer.  The final max pooling output is then  flattened and followed by three densely connected layers.  Notice that most of the parameters in the model belong to the fully connected layers!</p>
+
+<p>As you can probably imagine, an architecture like this has the risk of overfitting to the training dataset.  In practice, judicious use of dropout laters is used to avoid overfitting.</p>
+
+<p>In the last few years, experts have used global average pooling (GAP) layers to reduce the total number of parameters in the model.  The <a href="https://arxiv.org/pdf/1312.4400.pdf">first paper</a> to propose GAP layers designed an architecture where the output of the final max pooling layer was a filtered image with one channel (or feature map) for each image category in the dataset.  The max pooling output was then fed to a GAP layer, which yielded a vector with a single entry for each possible object in the classification task.  The authors then applied a softmax activation function to yield the predicted probability of each class.  If you peek at the <a href="https://arxiv.org/pdf/1312.4400.pdf">original paper</a>, I especially recommend checking out Section 3.2, titled “Global Average Pooling”.</p>
+
+<p>The <a href="http://ethereon.github.io/netscope/#/gist/db945b393d40bfa26006">ResNet-50 model</a> takes a less extreme approach; instead of getting rid of dense layers altogether, its final convolutional output is fed to a GAP layer, followed by one densely connected layer with a softmax activation function that yields the predicted object classes.</p>
+
+<p>In mid-2016, <a href="http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf">researchers at MIT</a> demonstrated that CNNs with GAP layers (a.k.a. GAP-CNNs) that have been trained for a classification task can also be used for <a href="https://www.youtube.com/watch?v=fZvOy0VXWAI">object localization</a>.  That is, a GAP-CNN not only tells us <em>what</em> object is contained in the image - it also tells us <em>where</em> the object is in the image, and through no additional work on our part!</p>
+
+<p>In this blog post, we explore the localization ability of the pre-trained ResNet-50 model.  The localization is expressed as a heat map (henceforth referred to as a <strong>class activation map</strong>), where the color-coding scheme identifies regions that are relatively important for the GAP-CNN to perform the object identification task.  Some sample output from the <a href="http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf">first paper</a> to introduce this technique appears below, where the authors were able to train a model to determine regions of an image that correspond to humans performing different actions.</p>
+
+<p>(put image here)</p>
+
+<p>The main idea from <a href="http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf">the paper</a> is that each of the activation maps in the final convolutional layer acts as a detector for a different pattern in the image, localized in space.  To get the <em>class</em> activation map corresponding to an image, we need only to translate these detected patterns to detected objects.  This translation is done by noticing each node in the GAP layer corresponds to a different filtered image, and that the weights in the final dense layer encode each filtered image’s contribution to the predicted object class.  We can thus sum the contributions of each of the detected patterns (from the final convolutional output), where detected patterns that are more important to the predicted object class are given more weight.</p>
+
+<p>Let <script type="math/tex">f_k</script> represent the <script type="math/tex">k</script>-th activation map in the final convolutional layer.  In the pre-trained ResNet-50 model, the last convolutional layer contains 2048 activation maps, each 7 pixels high and 7 pixels wide.  So, <script type="math/tex">f_0</script> is <script type="math/tex">7\times7</script> pixels and is the first activation map in the convolutional layer, <script type="math/tex">f_1</script> is also <script type="math/tex">7\times7</script> pixels and is the second activation map, and so on, where <script type="math/tex">f_{2047}</script> is likewise <script type="math/tex">7\times7</script> pixels and is the final activation map.  In order to permit comparison to the original image, we use <a href="https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.ndimage.zoom.html#scipy.ndimage.zoom">bilinear upsampling</a> to resize each activation map to <script type="math/tex">224 \times 224</script>.</p>
+
+<p>Next, we look at the class that is predicted by the model.  The output node corresponding to the predicted class is connected to every node in the GAP layer.  Let <script type="math/tex">w_i</script> represent the weight connecting the <script type="math/tex">i</script>-th node in the GAP layer to the output node corresponding to the predicted dog breed.  Then, in order to obtain the class activation map, we need only compute the sum</p>
+
+<script type="math/tex; mode=display">w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}.</script>
+
+<p>This sum is a <script type="math/tex">224x224</script> array that is then plotted in the code to produce the classification map.  If you’d like to use this code to do your own object localization, you need only download the repository and run the command <strong>~link to repository coming soon, along with download instructions~</strong></p>
+
+  </section>
+
+
+
+<div class="share-page">
+    Share this on &rarr;
+    <a href="https://twitter.com/intent/tweet?text=Global Average Pooling Layers for Object Localization&url=http://localhost:4000/2016/global-average-pooling-layers-for-object-localization/&via=alexis_b_cook&related=alexis_b_cook" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
+</div>
+
+
+
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://localhost:4000/2016/global-average-pooling-layers-for-object-localization/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '/2016/global-average-pooling-layers-for-object-localization'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//alexisbcook-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+       })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2017 Alexis Cook. All rights reserved.</span>
+</footer> 
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+    </div>
+  </body>
+</html>

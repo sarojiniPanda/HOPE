@@ -5,9 +5,64 @@
     <description>Deep Learning Professional</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 08 Apr 2017 23:40:33 -0500</pubDate>
-    <lastBuildDate>Sat, 08 Apr 2017 23:40:33 -0500</lastBuildDate>
+    <pubDate>Sun, 09 Apr 2017 17:42:04 -0500</pubDate>
+    <lastBuildDate>Sun, 09 Apr 2017 17:42:04 -0500</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>Global Average Pooling Layers for Object Localization</title>
+        <description>&lt;p&gt;For classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers, where the final dense layer has a softmax activation function and a node for each potential object category.&lt;/p&gt;
+
+&lt;p&gt;As an example, consider the VGG-16 model architecture, depicted in the figure below.&lt;/p&gt;
+
+&lt;p&gt;(put picture of VGG-16 model)&lt;/p&gt;
+
+&lt;p&gt;We can also summarize the layers of the VGG-16 model by executing the following line of code in the terminal:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'from keras.applications.vgg16 import VGG16; VGG16().summary()'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Your output should appear as follows:&lt;/p&gt;
+
+&lt;p&gt;(put vgg-16 layers description here)&lt;/p&gt;
+
+&lt;p&gt;You will notice five blocks of (two to three) convolutional layers followed by a max pooling layer.  The final max pooling output is then  flattened and followed by three densely connected layers.  Notice that most of the parameters in the model belong to the fully connected layers!&lt;/p&gt;
+
+&lt;p&gt;As you can probably imagine, an architecture like this has the risk of overfitting to the training dataset.  In practice, judicious use of dropout laters is used to avoid overfitting.&lt;/p&gt;
+
+&lt;p&gt;In the last few years, experts have used global average pooling (GAP) layers to reduce the total number of parameters in the model.  The &lt;a href=&quot;https://arxiv.org/pdf/1312.4400.pdf&quot;&gt;first paper&lt;/a&gt; to propose GAP layers designed an architecture where the output of the final max pooling layer was a filtered image with one channel (or feature map) for each image category in the dataset.  The max pooling output was then fed to a GAP layer, which yielded a vector with a single entry for each possible object in the classification task.  The authors then applied a softmax activation function to yield the predicted probability of each class.  If you peek at the &lt;a href=&quot;https://arxiv.org/pdf/1312.4400.pdf&quot;&gt;original paper&lt;/a&gt;, I especially recommend checking out Section 3.2, titled “Global Average Pooling”.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://ethereon.github.io/netscope/#/gist/db945b393d40bfa26006&quot;&gt;ResNet-50 model&lt;/a&gt; takes a less extreme approach; instead of getting rid of dense layers altogether, its final convolutional output is fed to a GAP layer, followed by one densely connected layer with a softmax activation function that yields the predicted object classes.&lt;/p&gt;
+
+&lt;p&gt;In mid-2016, &lt;a href=&quot;http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf&quot;&gt;researchers at MIT&lt;/a&gt; demonstrated that CNNs with GAP layers (a.k.a. GAP-CNNs) that have been trained for a classification task can also be used for &lt;a href=&quot;https://www.youtube.com/watch?v=fZvOy0VXWAI&quot;&gt;object localization&lt;/a&gt;.  That is, a GAP-CNN not only tells us &lt;em&gt;what&lt;/em&gt; object is contained in the image - it also tells us &lt;em&gt;where&lt;/em&gt; the object is in the image, and through no additional work on our part!&lt;/p&gt;
+
+&lt;p&gt;In this blog post, we explore the localization ability of the pre-trained ResNet-50 model.  The localization is expressed as a heat map (henceforth referred to as a &lt;strong&gt;class activation map&lt;/strong&gt;), where the color-coding scheme identifies regions that are relatively important for the GAP-CNN to perform the object identification task.  Some sample output from the &lt;a href=&quot;http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf&quot;&gt;first paper&lt;/a&gt; to introduce this technique appears below, where the authors were able to train a model to determine regions of an image that correspond to humans performing different actions.&lt;/p&gt;
+
+&lt;p&gt;(put image here)&lt;/p&gt;
+
+&lt;p&gt;The main idea from &lt;a href=&quot;http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf&quot;&gt;the paper&lt;/a&gt; is that each of the activation maps in the final convolutional layer acts as a detector for a different pattern in the image, localized in space.  To get the &lt;em&gt;class&lt;/em&gt; activation map corresponding to an image, we need only to translate these detected patterns to detected objects.  This translation is done by noticing each node in the GAP layer corresponds to a different filtered image, and that the weights in the final dense layer encode each filtered image’s contribution to the predicted object class.  We can thus sum the contributions of each of the detected patterns (from the final convolutional output), where detected patterns that are more important to the predicted object class are given more weight.&lt;/p&gt;
+
+&lt;p&gt;Let &lt;script type=&quot;math/tex&quot;&gt;f_k&lt;/script&gt; represent the &lt;script type=&quot;math/tex&quot;&gt;k&lt;/script&gt;-th activation map in the final convolutional layer.  In the pre-trained ResNet-50 model, the last convolutional layer contains 2048 activation maps, each 7 pixels high and 7 pixels wide.  So, &lt;script type=&quot;math/tex&quot;&gt;f_0&lt;/script&gt; is &lt;script type=&quot;math/tex&quot;&gt;7\times7&lt;/script&gt; pixels and is the first activation map in the convolutional layer, &lt;script type=&quot;math/tex&quot;&gt;f_1&lt;/script&gt; is also &lt;script type=&quot;math/tex&quot;&gt;7\times7&lt;/script&gt; pixels and is the second activation map, and so on, where &lt;script type=&quot;math/tex&quot;&gt;f_{2047}&lt;/script&gt; is likewise &lt;script type=&quot;math/tex&quot;&gt;7\times7&lt;/script&gt; pixels and is the final activation map.  In order to permit comparison to the original image, we use &lt;a href=&quot;https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.ndimage.zoom.html#scipy.ndimage.zoom&quot;&gt;bilinear upsampling&lt;/a&gt; to resize each activation map to &lt;script type=&quot;math/tex&quot;&gt;224 \times 224&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next, we look at the class that is predicted by the model.  The output node corresponding to the predicted class is connected to every node in the GAP layer.  Let &lt;script type=&quot;math/tex&quot;&gt;w_i&lt;/script&gt; represent the weight connecting the &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt;-th node in the GAP layer to the output node corresponding to the predicted dog breed.  Then, in order to obtain the class activation map, we need only compute the sum&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}.&lt;/script&gt;
+
+&lt;p&gt;This sum is a &lt;script type=&quot;math/tex&quot;&gt;224x224&lt;/script&gt; array that is then plotted in the code to produce the classification map.  If you’d like to use this code to do your own object localization, you need only download the repository and run the command &lt;strong&gt;~link to repository coming soon, along with download instructions~&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 09 Apr 2016 06:39:23 -0500</pubDate>
+        <link>http://localhost:4000//2016/global-average-pooling-layers-for-object-localization/</link>
+        <guid isPermaLink="true">http://localhost:4000//2016/global-average-pooling-layers-for-object-localization/</guid>
+        
+        <category>keras</category>
+        
+        <category>localization</category>
+        
+        
+        <category>keras</category>
+        
+      </item>
     
       <item>
         <title>Using Transfer Learning to Classify Images with Keras</title>
@@ -79,6 +134,8 @@
         <category>transfer-learning</category>
         
         <category>keras</category>
+        
+        <category>classification</category>
         
         
         <category>keras</category>
