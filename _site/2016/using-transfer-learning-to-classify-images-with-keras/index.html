@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Using Transfer Learning to Classify Images with Keras</title>
+  <meta name="description" content="Deep Learning Professional">
+  <meta name="author" content="Alexis Cook">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Alexis Cook">
+  <meta name="twitter:description" content="Deep Learning Professional">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Alexis Cook">
+  <meta property="og:description" content="Deep Learning Professional">
+
+<link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+
+ <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/images/favicons/android-icon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000//2016/using-transfer-learning-to-classify-images-with-keras/">
+  <link rel="alternate" type="application/rss+xml" title="Alexis Cook" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Alexis Cook">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Alexis Cook</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">Deep Learning Professional</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Alexis Cook blog" class="blog-button">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/alexis_b_cook" title="@alexis_b_cook on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Facebook -->
+              <li class="navigation__item">
+                <a href="http://fb.me/alexis.cook" title="alexis.cook on Facebook" target="_blank">
+                  <i class="icon icon-social-facebook"></i>
+                  <span class="label">Facebook</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/alexis-cook-a6127753" title="alexis-cook-a6127753 on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/alexisbcook" title="alexisbcook on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:alexis.cook@gmail.com" title="Email alexis.cook@gmail.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="8 Apr 2016" class="post-meta__date date">8 Apr 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#transfer-learning">transfer-learning</a> <a href="/tags/#keras">keras</a> </span>
+    </div>
+    <h1 class="post-title">Using Transfer Learning to Classify Images with Keras</h1>
+  </header>
+  
+
+  <section class="post">
+    <p>In this blog post, I will teach you how to <em>efficiently</em> use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a <a href="https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366">recent Medium post</a> that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.</p>
+
+<p>I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning and will focus on discussing the details of my code in Keras.</p>
+
+<p>If you need to learn more about CNNs, I recommend reading the notes for the <a href="http://cs231n.github.io/convolutional-networks/">CS231n</a> course at Stanford.  All lectures are also available <a href="https://www.youtube.com/watch?v=LxfUGhug-iQ&amp;list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC&amp;index=7">online</a>.  You are also encouraged to check out Term 2 of Udacity’s <a href="https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889">Artificial Intelligence Nanodegree</a>, where you can find a comprehensive introduction to neural networks (NNs), CNNs (including transfer learning), and recurrent neural networks (RNNs).</p>
+
+<h4 id="the-dataset">The Dataset</h4>
+
+<p><a href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10</a> is a popular dataset composed of 60,000 tiny color images that each depict an object from one of ten different categories.</p>
+
+<p><img src="http://localhost:4000/assets/cifar10.png" alt="cifar-10 dataset" /></p>
+
+<p>This dataset is simple to load in Keras.</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="kn">import</span> <span class="n">cifar10</span>
+<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">cifar10</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>In fact, there are many <a href="https://keras.io/datasets/">other datasets</a> that can easily be imported in Keras.</p>
+
+<h4 id="extracting-the-inceptionv3-bottleneck-features">Extracting the InceptionV3 Bottleneck Features</h4>
+
+<p>We won’t build or train our own CNNs.  Instead, we will use <strong>transfer learning</strong> to leverage a pre-trained CNN that has demonstrated state-of-the-art performance in object classification tasks.</p>
+
+<p>Keras makes it very easy to access several pre-trained <a href="https://keras.io/applications/">CNN architectures</a>.  For now, we will focus on the InceptionV3 architecture.</p>
+
+<p><img src="http://localhost:4000/assets/inception.png" alt="inception architecture" /></p>
+
+<p>After importing the necessary Python class, it’s only one line of code to get the model, along with the corresponding weights.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">keras.applications.inception_v3</span> <span class="kn">import</span> <span class="n">InceptionV3</span>
+<span class="n">base_model</span> <span class="o">=</span> <span class="n">InceptionV3</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s">'imagenet'</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>The pre-trained InceptionV3 architecture is now stored in the variable <code class="highlighter-rouge">base_model</code>.  The final layer of this network is a densely connected layer designed to distinguish between the <a href="https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a">1000 different object categories</a> in the ImageNet database.  We will remove this final layer and save the resultant network in a new model.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">base_model</span><span class="o">.</span><span class="nb">input</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">base_model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s">'avg_pool'</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>This new model will no longer return a predicted image class, since the classification layer has been removed; however, the CNN now stored in <code class="highlighter-rouge">model</code> still provides us with a useful way to extract features from images.  By passing each of the CIFAR-10 images through this model, we can convert each image from its 32x32x3 array of raw image pixels to a vector with 2048 entries.  We’ll refer to this dataset of 2048-dimensional points as InceptionV3 bottleneck features.</p>
+
+<h4 id="using-t-sne-to-visualize-bottleneck-features">Using t-SNE to Visualize Bottleneck Features</h4>
+
+<p>Towards visualizing the bottleneck features, we will use a dimensionality reduction technique called <a href="http://distill.pub/2016/misread-tsne/">t-SNE</a> (aka t-Distributed Stochastic Neighbor Embedding).  We use t-SNE to reduce the dimensionality of each point, in a way where the points in the lower-dimensional space preserve the pointwise distances from the original, higher-dimensional space.  Scikit-learn <a href="http://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">has an implementation</a> of t-SNE, but it is too slow for our purposes.  Instead, to work with our very large, highly dimensional dataset, you’ll need to work with a faster implementation.  The implementation we encourage you to use can be found <a href="https://github.com/alexisbcook/tsne">on github</a>, and can be installed by running <code class="highlighter-rouge">pip install git+https://github.com/alexisbcook/tsne.git</code> in the terminal.</p>
+
+<p>After plotting the resulting 2-dimensional points, color-coded by label, we get the plot below.</p>
+
+<p><img src="http://localhost:4000/assets/tsne.png" alt="t-sne plot for transfer learning on cifar-10" /></p>
+
+<p>It looks like InceptionV3 has done an amazing job with teasing out the content in the image, where points containing similar objects are mostly confined to nearby regions in the 2D plot.</p>
+
+<h4 id="performing-classification-with-transfer-learning">Performing Classification with Transfer Learning</h4>
+
+<p>When we train a very shallow NN on the bottleneck features, we attain a test accuracy of 80 percent!  That’s amazing! :)</p>
+
+<h4 id="play-with-the-code">Play with the Code!</h4>
+
+<p>Can we do better with other pre-trained architectures?  Feel free to download the code on Github and try your own hand at transfer learning!  <strong>Link to repository coming soon ~</strong></p>
+
+  </section>
+
+
+
+<div class="share-page">
+    Share this on &rarr;
+    <a href="https://twitter.com/intent/tweet?text=Using Transfer Learning to Classify Images with Keras&url=http://localhost:4000/2016/using-transfer-learning-to-classify-images-with-keras/&via=alexis_b_cook&related=alexis_b_cook" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
+</div>
+
+
+
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://localhost:4000/2016/using-transfer-learning-to-classify-images-with-keras/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '/2016/using-transfer-learning-to-classify-images-with-keras'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//alexisbcook-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+       })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2017 Alexis Cook. All rights reserved.</span>
+</footer> 
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+    </div>
+  </body>
+</html>
