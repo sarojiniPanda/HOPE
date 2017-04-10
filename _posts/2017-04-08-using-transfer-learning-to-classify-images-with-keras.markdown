@@ -1,6 +1,6 @@
 ---
 title:  "Using Transfer Learning to Classify Images with Keras"
-date:   2016-04-08 11:39:23
+date:   2017-04-08 11:39:23
 categories: [keras] 
 tags: [transfer-learning, keras, classification]
 ---
