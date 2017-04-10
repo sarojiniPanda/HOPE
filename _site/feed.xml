@@ -5,13 +5,15 @@
     <description>Deep Learning Professional</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 09 Apr 2017 19:15:53 -0500</pubDate>
-    <lastBuildDate>Sun, 09 Apr 2017 19:15:53 -0500</lastBuildDate>
+    <pubDate>Sun, 09 Apr 2017 19:27:25 -0500</pubDate>
+    <lastBuildDate>Sun, 09 Apr 2017 19:27:25 -0500</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
         <title>Global Average Pooling Layers for Object Localization</title>
-        <description>&lt;p&gt;For image classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers.  The final dense layer has a softmax activation function and a node for each potential object category.&lt;/p&gt;
+        <description>&lt;p&gt;NOTE: This blog is still in draft mode; the math is not rendering.  Should be fixed soon!&lt;/p&gt;
+
+&lt;p&gt;For image classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers.  The final dense layer has a softmax activation function and a node for each potential object category.&lt;/p&gt;
 
 &lt;p&gt;As an example, consider the VGG-16 model architecture, depicted in the figure below.&lt;/p&gt;
 

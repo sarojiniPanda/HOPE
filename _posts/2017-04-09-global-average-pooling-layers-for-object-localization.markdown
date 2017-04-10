@@ -5,6 +5,8 @@ categories: [keras]
 tags: [keras, localization]
 ---
 
+NOTE: This blog is still in draft mode; the math is not rendering.  Should be fixed soon!
+
 For image classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers.  The final dense layer has a softmax activation function and a node for each potential object category.  
 
 As an example, consider the VGG-16 model architecture, depicted in the figure below.
