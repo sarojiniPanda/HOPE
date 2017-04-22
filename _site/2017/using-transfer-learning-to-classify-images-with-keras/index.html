@@ -49,6 +49,22 @@
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://localhost:4000//2017/using-transfer-learning-to-classify-images-with-keras/">
   <link rel="alternate" type="application/rss+xml" title="Alexis Cook" href="/feed.xml">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ["\\(", "\\)"] ],
+      displayMath: [ ['$$', '$$'], ["\\[", "\\]"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+    //,
+    //displayAlign: "left",
+    //displayIndent: "2em"
+  });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
   <script type="text/javascript"
     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
@@ -169,7 +185,7 @@
   <section class="post">
     <p>In this blog post, I will teach you how to <em>efficiently</em> use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a <a href="https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366">recent Medium post</a> that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.</p>
 
-<p>I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning and will focus on discussing the details of my code in Keras.</p>
+<p>I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning, and we’ll focus on discussing the details of my code in Keras.</p>
 
 <p>If you need to learn more about CNNs, I recommend reading the notes for the <a href="http://cs231n.github.io/convolutional-networks/">CS231n</a> course at Stanford.  All lectures are also available <a href="https://www.youtube.com/watch?v=LxfUGhug-iQ&amp;list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC&amp;index=7">online</a>.  You are also encouraged to check out Term 2 of Udacity’s <a href="https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889">Artificial Intelligence Nanodegree</a>, where you can find a comprehensive introduction to neural networks (NNs), CNNs (including transfer learning), and recurrent neural networks (RNNs).</p>
 
@@ -179,13 +195,11 @@
 
 <p><img src="http://localhost:4000/assets/cifar10.png" alt="cifar-10 dataset" /></p>
 
-<p>This dataset is simple to load in Keras.</p>
+<p>This <a href="https://keras.io/datasets/">dataset</a> is simple to load in Keras.</p>
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="kn">import</span> <span class="n">cifar10</span>
 <span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">cifar10</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
 </code></pre>
 </div>
-
-<p>In fact, there are many <a href="https://keras.io/datasets/">other datasets</a> that can easily be imported in Keras.</p>
 
 <h4 id="extracting-the-inceptionv3-bottleneck-features">Extracting the InceptionV3 Bottleneck Features</h4>
 
@@ -195,7 +209,7 @@
 
 <p><img src="http://localhost:4000/assets/inception.png" alt="inception architecture" /></p>
 
-<p>After importing the necessary Python class, it’s only one line of code to get the model, along with the corresponding weights.</p>
+<p>After importing the necessary Python class, it’s only one line of code to get the model, along with the pre-trained weights.</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">keras.applications.inception_v3</span> <span class="kn">import</span> <span class="n">InceptionV3</span>
 <span class="n">base_model</span> <span class="o">=</span> <span class="n">InceptionV3</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s">'imagenet'</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -208,17 +222,17 @@
 </code></pre>
 </div>
 
-<p>This new model will no longer return a predicted image class, since the classification layer has been removed; however, the CNN now stored in <code class="highlighter-rouge">model</code> still provides us with a useful way to extract features from images.  By passing each of the CIFAR-10 images through this model, we can convert each image from its 32x32x3 array of raw image pixels to a vector with 2048 entries.  We’ll refer to this dataset of 2048-dimensional points as InceptionV3 bottleneck features.</p>
+<p>This new model will no longer return a predicted image class, since the classification layer has been removed; however, the CNN now stored in <code class="highlighter-rouge">model</code> still provides us with a useful way to extract features from images.  By passing each of the CIFAR-10 images through this model, we can convert each image from its 32x32x3 array of raw image pixels to a vector with 2048 entries.  In practice, we refer to this dataset of 2048-dimensional points as InceptionV3 bottleneck features.</p>
 
 <h4 id="using-t-sne-to-visualize-bottleneck-features">Using t-SNE to Visualize Bottleneck Features</h4>
 
-<p>Towards visualizing the bottleneck features, we will use a dimensionality reduction technique called <a href="http://distill.pub/2016/misread-tsne/">t-SNE</a> (aka t-Distributed Stochastic Neighbor Embedding).  We use t-SNE to reduce the dimensionality of each point, in a way where the points in the lower-dimensional space preserve the pointwise distances from the original, higher-dimensional space.  Scikit-learn <a href="http://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">has an implementation</a> of t-SNE, but it is too slow for our purposes.  Instead, to work with our very large, highly dimensional dataset, you’ll need to work with a faster implementation.  The implementation we encourage you to use can be found <a href="https://github.com/alexisbcook/tsne">on github</a>, and can be installed by running <code class="highlighter-rouge">pip install git+https://github.com/alexisbcook/tsne.git</code> in the terminal.</p>
+<p>Towards visualizing the bottleneck features, we will use a dimensionality reduction technique called <a href="http://distill.pub/2016/misread-tsne/">t-SNE</a> (aka t-Distributed Stochastic Neighbor Embedding).  t-SNE reduces the dimensionality of each point, in a way where the points in the lower-dimensional space preserve the pointwise distances from the original, higher-dimensional space.  Scikit-learn <a href="http://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">has an implementation</a> of t-SNE, but it is too slow for our purposes.  Instead, to work with our very large, highly dimensional dataset, you’ll need to work with a faster implementation.  The implementation we encourage you to use can be found <a href="https://github.com/alexisbcook/tsne">on github</a>, and can be installed by running <code class="highlighter-rouge">pip install git+https://github.com/alexisbcook/tsne.git</code> in the terminal.</p>
 
 <p>After plotting the resulting 2-dimensional points, color-coded by label, we get the plot below.</p>
 
 <p><img src="http://localhost:4000/assets/tsne.png" alt="t-sne plot for transfer learning on cifar-10" /></p>
 
-<p>It looks like InceptionV3 has done an amazing job with teasing out the content in the image, where points containing similar objects are mostly confined to nearby regions in the 2D plot.</p>
+<p>InceptionV3 does an amazing job with teasing out the content in the image, where points containing similar objects are mostly confined to nearby regions in the 2D plot.</p>
 
 <h4 id="performing-classification-with-transfer-learning">Performing Classification with Transfer Learning</h4>
 
