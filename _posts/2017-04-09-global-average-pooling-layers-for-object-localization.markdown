@@ -41,6 +41,6 @@ Now that we've explored the intuition, we're ready for a concise description of 
 
 Next, we look at the class that is predicted by the model.  The output node corresponding to the predicted class is connected to every node in the GAP layer.  Let $$w_i$$ represent the weight connecting the $$i$$-th node in the GAP layer to the output node corresponding to the predicted dog breed.  Then, in order to obtain the class activation map, we need only compute the sum
 
-$$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}.$$
+<div>$$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}.$$</div>
 
-This sum is a $$224\times 224$$ array that is then plotted in the code to produce the class activation map.  If you'd like to use this code to do your own object localization, you need only download the repository and run the command __~link to repository coming soon, along with download instructions~__
+This sum is a <span>$$224\times 224$$</span> array that is then plotted in the code to produce the class activation map.  If you'd like to use this code to do your own object localization, you need only download the repository and run the command __~link to repository coming soon, along with download instructions~__
