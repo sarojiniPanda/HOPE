@@ -3,9 +3,24 @@
   
     
     <url>
+      <loc>http://localhost:4000/2017/training-a-cnn-to-detect-facial-keypoints/</loc>
+      
+        <lastmod>2017-04-22T07:39:23-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
       <loc>http://localhost:4000/2017/global-average-pooling-layers-for-object-localization/</loc>
       
-        <lastmod>2017-04-09T05:39:23-06:00</lastmod>
+        <lastmod>2017-04-09T07:39:23-04:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -20,7 +35,7 @@
     <url>
       <loc>http://localhost:4000/2017/using-transfer-learning-to-classify-images-with-keras/</loc>
       
-        <lastmod>2017-04-08T05:39:23-06:00</lastmod>
+        <lastmod>2017-04-08T07:39:23-04:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -36,7 +51,7 @@
     <url>
       <loc>http://localhost:4000/categories/</loc>
       
-        <lastmod>2017-04-22T16:16:55-06:00</lastmod>
+        <lastmod>2017-04-23T00:53:33-04:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -51,7 +66,7 @@
     <url>
       <loc>http://localhost:4000/feed.xml</loc>
       
-        <lastmod>2017-04-22T16:16:55-06:00</lastmod>
+        <lastmod>2017-04-23T00:53:33-04:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -66,7 +81,7 @@
     <url>
       <loc>http://localhost:4000/</loc>
       
-        <lastmod>2017-04-22T16:16:55-06:00</lastmod>
+        <lastmod>2017-04-23T00:53:33-04:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -81,7 +96,7 @@
     <url>
       <loc>http://localhost:4000/js/main.js</loc>
       
-        <lastmod>2017-04-22T16:16:55-06:00</lastmod>
+        <lastmod>2017-04-23T00:53:33-04:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -98,7 +113,7 @@
     <url>
       <loc>http://localhost:4000/tags/</loc>
       
-        <lastmod>2017-04-22T16:16:55-06:00</lastmod>
+        <lastmod>2017-04-23T00:53:33-04:00</lastmod>
       
       
         <changefreq>monthly</changefreq>

@@ -2,10 +2,10 @@
 title:  "Using Transfer Learning to Classify Images with Keras"
 date:   2017-04-08 11:39:23
 categories: [keras] 
-tags: [transfer-learning, keras, classification]
+tags: [keras, classification, transfer-learning]
 ---
 
-In this blog post, I will teach you how to _efficiently_ use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a [recent Medium post](https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366) that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.  
+In this blog post, I will show you how to _efficiently_ use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a [recent Medium post](https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366) that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.  
 
 I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning, and we'll focus on discussing the details of my code in Keras. 
 

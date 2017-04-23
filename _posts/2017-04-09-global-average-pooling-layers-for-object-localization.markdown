@@ -5,8 +5,6 @@ categories: [keras]
 tags: [keras, localization]
 ---
 
-NOTE: This blog is still in draft mode; the math is not rendering.  Should be fixed soon!
-
 For image classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers.  The final dense layer has a softmax activation function and a node for each potential object category.  
 
 As an example, consider the VGG-16 model architecture, depicted in the figure below.
@@ -43,4 +41,13 @@ Next, we look at the class that is predicted by the model.  The output node corr
 
 $$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}.$$
 
-This sum is a $$224\times 224$$ array that is then plotted in the code to produce the class activation map.  If you'd like to use this code to do your own object localization, you need only download the repository and run the command __~link to repository coming soon, along with download instructions~__
+This sum is a $$224\times 224$$ array that is then plotted in the code to produce the class activation map.  If you'd like to use this code to do your own object localization, you need only download the repository.
+
+NOTE: This blog is still in draft mode; the math is not rendering.  Should be fixed soon!
+
+To get up-and-running even faster, you can run these commands in the terminal:
+``` python
+git clone path-to-repo
+cd repo
+python resnet50_localization.py name-of-image
+```
