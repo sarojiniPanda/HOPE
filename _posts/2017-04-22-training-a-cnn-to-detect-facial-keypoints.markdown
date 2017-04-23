@@ -5,8 +5,6 @@ categories: [keras]
 tags: [keras, regression]
 ---
 
-This is a draft :)
-
 In this blog post, I will show you how to use deep learning to detect facial keypoints in images.  The dataset we'll use was featured on [Kaggle](link) a few months ago, and can be downloaded [here](link).
 
 The data is composed of $$96 \times 96$$ grayscale images of cropped human faces, along with 15 corresponding facial landmarks, reported in ($$x, y$$) coordinates.  I've visualized some of the data below, where you can see that there are two landmarks per eyebrow (__four__ total), three per eye (__six__ total), __four__ for the mouth, and __one__ for the tip of the nose.   
@@ -21,6 +19,7 @@ We'll train a convolutional neural network (CNN) composed of stacks of layers.  
 
 We assess the suitability of any candidate collection of model weights according to the mean squared error (MSE) loss function.  MSE is a function of the model weights and is calculated as follows:
 
+This is a draft :)
 (write as a function of the model weights)
 
 where x is blah and y is blah.  MSE is minimized when the weights yield a model with predictions that line up well with the true values of the facial keypoints.  Thus, during the training process, we'll search for the weights that minimize the MSE.  
@@ -43,7 +42,7 @@ The CNN really only gives you Step 4, but the others are quick to fill in with O
 I've added this code to the [repository](link), and I hope you enjoy!  Please let me know if you end up using it to add a Snapchat-like filter :).
 
 To get up-and-running quickly, you can run these commands in the terminal:
-``` python
+```
 git clone path-to-repo
 cd repo
 python face_keypoints.py name-of-image

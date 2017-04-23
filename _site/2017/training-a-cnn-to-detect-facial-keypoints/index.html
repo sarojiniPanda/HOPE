@@ -162,9 +162,7 @@
   
 
   <section class="post">
-    <p>This is a draft :)</p>
-
-<p>In this blog post, I will show you how to use deep learning to detect facial keypoints in images.  The dataset we’ll use was featured on <a href="link">Kaggle</a> a few months ago, and can be downloaded <a href="link">here</a>.</p>
+    <p>In this blog post, I will show you how to use deep learning to detect facial keypoints in images.  The dataset we’ll use was featured on <a href="link">Kaggle</a> a few months ago, and can be downloaded <a href="link">here</a>.</p>
 
 <p>The data is composed of <script type="math/tex">96 \times 96</script> grayscale images of cropped human faces, along with 15 corresponding facial landmarks, reported in (<script type="math/tex">x, y</script>) coordinates.  I’ve visualized some of the data below, where you can see that there are two landmarks per eyebrow (<strong>four</strong> total), three per eye (<strong>six</strong> total), <strong>four</strong> for the mouth, and <strong>one</strong> for the tip of the nose.</p>
 
@@ -178,7 +176,8 @@
 
 <p>We assess the suitability of any candidate collection of model weights according to the mean squared error (MSE) loss function.  MSE is a function of the model weights and is calculated as follows:</p>
 
-<p>(write as a function of the model weights)</p>
+<p>This is a draft :)
+(write as a function of the model weights)</p>
 
 <p>where x is blah and y is blah.  MSE is minimized when the weights yield a model with predictions that line up well with the true values of the facial keypoints.  Thus, during the training process, we’ll search for the weights that minimize the MSE.</p>
 
@@ -202,9 +201,9 @@
 <p>I’ve added this code to the <a href="link">repository</a>, and I hope you enjoy!  Please let me know if you end up using it to add a Snapchat-like filter :).</p>
 
 <p>To get up-and-running quickly, you can run these commands in the terminal:</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">git</span> <span class="n">clone</span> <span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">repo</span>
-<span class="n">cd</span> <span class="n">repo</span>
-<span class="n">python</span> <span class="n">face_keypoints</span><span class="o">.</span><span class="n">py</span> <span class="n">name</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">image</span>
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone path-to-repo
+cd repo
+python face_keypoints.py name-of-image
 </code></pre>
 </div>
 
