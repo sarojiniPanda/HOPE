@@ -5,8 +5,8 @@
     <description>Deep Learning Professional</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 23 Apr 2017 18:15:41 -0400</pubDate>
-    <lastBuildDate>Sun, 23 Apr 2017 18:15:41 -0400</lastBuildDate>
+    <pubDate>Sun, 23 Apr 2017 18:59:23 -0400</pubDate>
+    <lastBuildDate>Sun, 23 Apr 2017 18:59:23 -0400</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
@@ -135,7 +135,7 @@ python face_keypoints.py name-of-image
         <title>Using Transfer Learning to Classify Images with Keras</title>
         <description>&lt;p&gt;In this blog post, I will show you how to &lt;em&gt;efficiently&lt;/em&gt; use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a &lt;a href=&quot;https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366&quot;&gt;recent Medium post&lt;/a&gt; that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.&lt;/p&gt;
 
-&lt;p&gt;I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning, and we’ll focus on discussing the details of my code in Keras.&lt;/p&gt;
+&lt;p&gt;I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning, and will focus on discussing the details of my code in Keras.&lt;/p&gt;
 
 &lt;p&gt;If you need to learn more about CNNs, I recommend reading the notes for the &lt;a href=&quot;http://cs231n.github.io/convolutional-networks/&quot;&gt;CS231n&lt;/a&gt; course at Stanford.  All lectures are also available &lt;a href=&quot;https://www.youtube.com/watch?v=LxfUGhug-iQ&amp;amp;list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC&amp;amp;index=7&quot;&gt;online&lt;/a&gt;.  You are also encouraged to check out Term 2 of Udacity’s &lt;a href=&quot;https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889&quot;&gt;Artificial Intelligence Nanodegree&lt;/a&gt;, where you can find a comprehensive introduction to neural networks (NNs), CNNs (including transfer learning), and recurrent neural networks (RNNs).&lt;/p&gt;
 
@@ -145,7 +145,7 @@ python face_keypoints.py name-of-image
 
 &lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/cifar10.png&quot; alt=&quot;cifar-10 dataset&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;This &lt;a href=&quot;https://keras.io/datasets/&quot;&gt;dataset&lt;/a&gt; is simple to load in Keras.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://keras.io/datasets/&quot;&gt;dataset&lt;/a&gt; is simple to load in Keras.&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;keras.datasets&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cifar10&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cifar10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -153,9 +153,9 @@ python face_keypoints.py name-of-image
 
 &lt;h4 id=&quot;extracting-the-inceptionv3-bottleneck-features&quot;&gt;Extracting the InceptionV3 Bottleneck Features&lt;/h4&gt;
 
-&lt;p&gt;We won’t build or train our own CNNs.  Instead, we will use &lt;strong&gt;transfer learning&lt;/strong&gt; to leverage a pre-trained CNN that has demonstrated state-of-the-art performance in object classification tasks.&lt;/p&gt;
+&lt;p&gt;Instead of building a CNN from scratch, I used &lt;strong&gt;transfer learning&lt;/strong&gt; to leverage a pre-trained CNN that has demonstrated state-of-the-art performance in object classification tasks.&lt;/p&gt;
 
-&lt;p&gt;Keras makes it very easy to access several pre-trained &lt;a href=&quot;https://keras.io/applications/&quot;&gt;CNN architectures&lt;/a&gt;.  For now, we will focus on the InceptionV3 architecture.&lt;/p&gt;
+&lt;p&gt;Keras makes it very easy to access several pre-trained &lt;a href=&quot;https://keras.io/applications/&quot;&gt;CNN architectures&lt;/a&gt;.  I decided to use the InceptionV3 architecture.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/inception.png&quot; alt=&quot;inception architecture&quot; /&gt;&lt;/p&gt;
 
@@ -166,7 +166,7 @@ python face_keypoints.py name-of-image
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The pre-trained InceptionV3 architecture is now stored in the variable &lt;code class=&quot;highlighter-rouge&quot;&gt;base_model&lt;/code&gt;.  The final layer of this network is a densely connected layer designed to distinguish between the &lt;a href=&quot;https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a&quot;&gt;1000 different object categories&lt;/a&gt; in the ImageNet database.  We will remove this final layer and save the resultant network in a new model.&lt;/p&gt;
+&lt;p&gt;The pre-trained InceptionV3 architecture is stored in the variable &lt;code class=&quot;highlighter-rouge&quot;&gt;base_model&lt;/code&gt;.  The final layer of the network is a fully connected layer designed to distinguish between the &lt;a href=&quot;https://gist.github.com/yrevar/942d3a0ac09ec9e5eb3a&quot;&gt;1000 different object categories&lt;/a&gt; in the ImageNet database.  Using the line of code below, I remove this final layer and save the resultant network in a new model.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base_model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base_model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'avg_pool'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -176,21 +176,23 @@ python face_keypoints.py name-of-image
 
 &lt;h4 id=&quot;using-t-sne-to-visualize-bottleneck-features&quot;&gt;Using t-SNE to Visualize Bottleneck Features&lt;/h4&gt;
 
-&lt;p&gt;Towards visualizing the bottleneck features, we will use a dimensionality reduction technique called &lt;a href=&quot;http://distill.pub/2016/misread-tsne/&quot;&gt;t-SNE&lt;/a&gt; (aka t-Distributed Stochastic Neighbor Embedding).  t-SNE reduces the dimensionality of each point, in a way where the points in the lower-dimensional space preserve the pointwise distances from the original, higher-dimensional space.  Scikit-learn &lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html&quot;&gt;has an implementation&lt;/a&gt; of t-SNE, but it is too slow for our purposes.  Instead, to work with our very large, highly dimensional dataset, you’ll need to work with a faster implementation.  The implementation we encourage you to use can be found &lt;a href=&quot;https://github.com/alexisbcook/tsne&quot;&gt;on github&lt;/a&gt;, and can be installed by running &lt;code class=&quot;highlighter-rouge&quot;&gt;pip install git+https://github.com/alexisbcook/tsne.git&lt;/code&gt; in the terminal.&lt;/p&gt;
+&lt;p&gt;Towards visualizing the bottleneck features, I use a dimensionality reduction technique called &lt;a href=&quot;http://distill.pub/2016/misread-tsne/&quot;&gt;t-SNE&lt;/a&gt; (aka t-Distributed Stochastic Neighbor Embedding).  t-SNE reduces the dimensionality of each point, in a way where the points in the lower-dimensional space preserve the pointwise distances from the original, higher-dimensional space.  Scikit-learn &lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html&quot;&gt;has an implementation&lt;/a&gt; of t-SNE, but it is too slow for our purposes.  Instead, to work with our very large, highly dimensional dataset, you’ll need to work with a faster implementation.  The implementation you’re encouraged to use is found &lt;a href=&quot;https://github.com/alexisbcook/tsne&quot;&gt;on github&lt;/a&gt; and can be installed by running &lt;code class=&quot;highlighter-rouge&quot;&gt;pip install git+https://github.com/alexisbcook/tsne.git&lt;/code&gt; in the terminal.&lt;/p&gt;
 
 &lt;p&gt;After plotting the resulting 2-dimensional points, color-coded by label, we get the plot below.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tsne.png&quot; alt=&quot;t-sne plot for transfer learning on cifar-10&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;InceptionV3 does an amazing job with teasing out the content in the image, where points containing similar objects are mostly confined to nearby regions in the 2D plot.&lt;/p&gt;
+&lt;p&gt;InceptionV3 does an amazing job with teasing out the content in the image, where points containing objects from the same class are mostly confined to nearby regions in the 2D plot.&lt;/p&gt;
 
 &lt;h4 id=&quot;performing-classification-with-transfer-learning&quot;&gt;Performing Classification with Transfer Learning&lt;/h4&gt;
 
-&lt;p&gt;When we train a very shallow NN on the bottleneck features, we attain a test accuracy of 80 percent!  That’s amazing! :)&lt;/p&gt;
+&lt;p&gt;So far, we have passed each of the 32x32x2 color images through a pre-trained CNN to extract their corresponding bottleneck features.  In this way, we have converted the array of raw image pixels to a representation that encodes the content of the image.  By visualizing a low-dimensional representation of the bottleneck features, we see that training a classifier on the bottleneck features should yield good performance.&lt;/p&gt;
+
+&lt;p&gt;In the Jupyter notebook in the repository, I have trained a very shallow NN on the bottleneck features.  It yields a test accuracy of xx%! :)&lt;/p&gt;
 
 &lt;h4 id=&quot;play-with-the-code&quot;&gt;Play with the Code!&lt;/h4&gt;
 
-&lt;p&gt;Can we do better with other pre-trained architectures?  Feel free to download the code on Github and try your own hand at transfer learning!  &lt;strong&gt;Link to repository coming soon ~&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Can you do better with other pre-trained architectures?  Feel free to download the &lt;a href=&quot;link&quot;&gt;repository&lt;/a&gt; on GitHub and try your own hand at transfer learning!&lt;/p&gt;
 </description>
         <pubDate>Sat, 08 Apr 2017 07:39:23 -0400</pubDate>
         <link>http://localhost:4000//2017/using-transfer-learning-to-classify-images-with-keras/</link>
