@@ -5,8 +5,8 @@
     <description>Deep Learning Professional</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 23 Apr 2017 18:09:43 -0400</pubDate>
-    <lastBuildDate>Sun, 23 Apr 2017 18:09:43 -0400</lastBuildDate>
+    <pubDate>Sun, 23 Apr 2017 18:15:41 -0400</pubDate>
+    <lastBuildDate>Sun, 23 Apr 2017 18:15:41 -0400</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
@@ -112,7 +112,11 @@ python face_keypoints.py name-of-image
 
 &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}&lt;/script&gt;.&lt;/p&gt;
 
-&lt;p&gt;This sum is a &lt;script type=&quot;math/tex&quot;&gt;224\times 224&lt;/script&gt; array that is then plotted to produce the class activation map.  If you’d like to use this code to do your own object localization, you need only download the &lt;a href=&quot;https://github.com/alexisbcook/ResNetCAM-keras&quot;&gt;repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This sum is a &lt;script type=&quot;math/tex&quot;&gt;224\times 224&lt;/script&gt; array corresponding to the class activation map.  You can plot these class activation maps for as many images as you like, to explore the localization ability of ResNet-50.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dog_localization.png&quot; alt=&quot;Dog Localization&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you’d like to use this code to do your own object localization, you need only download the &lt;a href=&quot;https://github.com/alexisbcook/ResNetCAM-keras&quot;&gt;repository&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sun, 09 Apr 2017 07:39:23 -0400</pubDate>
         <link>http://localhost:4000//2017/global-average-pooling-layers-for-object-localization/</link>

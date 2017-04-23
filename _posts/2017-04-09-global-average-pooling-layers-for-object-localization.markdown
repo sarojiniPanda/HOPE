@@ -46,4 +46,8 @@ Next, we look at the class that is predicted by the model.  The output node corr
 
 $$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}$$.
 
-This sum is a $$224\times 224$$ array that is then plotted to produce the class activation map.  If you'd like to use this code to do your own object localization, you need only download the [repository](https://github.com/alexisbcook/ResNetCAM-keras).
+This sum is a $$224\times 224$$ array corresponding to the class activation map.  You can plot these class activation maps for as many images as you like, to explore the localization ability of ResNet-50.
+
+![Dog Localization]({{ site.url }}/assets/dog_localization.png)
+
+If you'd like to use this code to do your own object localization, you need only download the [repository](https://github.com/alexisbcook/ResNetCAM-keras).
