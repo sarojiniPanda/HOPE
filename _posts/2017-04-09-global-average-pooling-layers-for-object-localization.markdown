@@ -3,6 +3,7 @@ title:  "Global Average Pooling Layers for Object Localization"
 date:   2017-04-09 11:39:23
 categories: [keras] 
 tags: [keras, localization]
+use_math: true
 ---
 
 For image classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers.  The final dense layer has a softmax activation function and a node for each potential object category.  
@@ -39,7 +40,7 @@ Now that we've explored the intuition, we're ready for a concise description of 
 
 Next, we look at the class that is predicted by the model.  The output node corresponding to the predicted class is connected to every node in the GAP layer.  Let $$w_i$$ represent the weight connecting the $$i$$-th node in the GAP layer to the output node corresponding to the predicted dog breed.  Then, in order to obtain the class activation map, we need only compute the sum
 
-$$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}.$$
+$$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}$$.
 
 This sum is a $$224\times 224$$ array that is then plotted in the code to produce the class activation map.  If you'd like to use this code to do your own object localization, you need only download the repository.
 
