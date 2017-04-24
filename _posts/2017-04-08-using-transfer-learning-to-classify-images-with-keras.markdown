@@ -5,7 +5,7 @@ categories: [keras]
 tags: [keras, classification, transfer-learning]
 ---
 
-In this blog post, I will show you how to _efficiently_ use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a [recent Medium post](https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366) that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.  
+In this blog post, I will show you how to _efficiently_ use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a [Medium post](https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366) that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.  
 
 I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning, and will focus on discussing the details of my code in Keras. 
 
@@ -60,8 +60,8 @@ InceptionV3 does an amazing job with teasing out the content in the image, where
 
 So far, we have passed each of the 32x32x2 color images through a pre-trained CNN to extract their corresponding bottleneck features.  In this way, we have converted the array of raw image pixels to a representation that encodes the content of the image.  By visualizing a low-dimensional representation of the bottleneck features, we see that training a classifier on the bottleneck features should yield good performance.
 
-In the Jupyter notebook in the repository, I have trained a very shallow NN on the bottleneck features.  It yields a test accuracy of xx%! :)
+In the Jupyter notebook in the repository, I trained a very shallow CNN on the bottleneck features.  It yields a test accuracy of 82.68%! :)
 
 #### Play with the Code!
 
-Can you do better with other pre-trained architectures?  Feel free to download the [repository](link) on GitHub and try your own hand at transfer learning! 
+Can you do better with other architectures?  Feel free to download the [repository](https://github.com/alexisbcook/keras_transfer_cifar10) on GitHub and try your own hand at transfer learning! 

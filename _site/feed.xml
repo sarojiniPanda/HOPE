@@ -5,8 +5,8 @@
     <description>Deep Learning Professional</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 23 Apr 2017 18:59:23 -0400</pubDate>
-    <lastBuildDate>Sun, 23 Apr 2017 18:59:23 -0400</lastBuildDate>
+    <pubDate>Mon, 24 Apr 2017 11:55:22 -0400</pubDate>
+    <lastBuildDate>Mon, 24 Apr 2017 11:55:22 -0400</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
@@ -133,7 +133,7 @@ python face_keypoints.py name-of-image
     
       <item>
         <title>Using Transfer Learning to Classify Images with Keras</title>
-        <description>&lt;p&gt;In this blog post, I will show you how to &lt;em&gt;efficiently&lt;/em&gt; use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a &lt;a href=&quot;https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366&quot;&gt;recent Medium post&lt;/a&gt; that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.&lt;/p&gt;
+        <description>&lt;p&gt;In this blog post, I will show you how to &lt;em&gt;efficiently&lt;/em&gt; use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a &lt;a href=&quot;https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366&quot;&gt;Medium post&lt;/a&gt; that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.&lt;/p&gt;
 
 &lt;p&gt;I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning, and will focus on discussing the details of my code in Keras.&lt;/p&gt;
 
@@ -188,11 +188,11 @@ python face_keypoints.py name-of-image
 
 &lt;p&gt;So far, we have passed each of the 32x32x2 color images through a pre-trained CNN to extract their corresponding bottleneck features.  In this way, we have converted the array of raw image pixels to a representation that encodes the content of the image.  By visualizing a low-dimensional representation of the bottleneck features, we see that training a classifier on the bottleneck features should yield good performance.&lt;/p&gt;
 
-&lt;p&gt;In the Jupyter notebook in the repository, I have trained a very shallow NN on the bottleneck features.  It yields a test accuracy of xx%! :)&lt;/p&gt;
+&lt;p&gt;In the Jupyter notebook in the repository, I trained a very shallow CNN on the bottleneck features.  It yields a test accuracy of 82.68%! :)&lt;/p&gt;
 
 &lt;h4 id=&quot;play-with-the-code&quot;&gt;Play with the Code!&lt;/h4&gt;
 
-&lt;p&gt;Can you do better with other pre-trained architectures?  Feel free to download the &lt;a href=&quot;link&quot;&gt;repository&lt;/a&gt; on GitHub and try your own hand at transfer learning!&lt;/p&gt;
+&lt;p&gt;Can you do better with other architectures?  Feel free to download the &lt;a href=&quot;https://github.com/alexisbcook/keras_transfer_cifar10&quot;&gt;repository&lt;/a&gt; on GitHub and try your own hand at transfer learning!&lt;/p&gt;
 </description>
         <pubDate>Sat, 08 Apr 2017 07:39:23 -0400</pubDate>
         <link>http://localhost:4000//2017/using-transfer-learning-to-classify-images-with-keras/</link>
