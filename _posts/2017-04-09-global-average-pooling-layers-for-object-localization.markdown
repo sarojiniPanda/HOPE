@@ -24,15 +24,17 @@ Your output should appear as follows:
 
 You will notice five blocks of (two to three) convolutional layers followed by a max pooling layer.  The final max pooling layer is then flattened and followed by three densely connected layers.  Notice that most of the parameters in the model belong to the fully connected layers!
 
-As you can probably imagine, an architecture like this has the risk of overfitting to the training dataset.  In practice, judicious use of dropout laters is used to avoid overfitting.
+As you can probably imagine, an architecture like this has the risk of overfitting to the training dataset.  In practice, dropout layers are used to avoid overfitting.
 
 #### Global Average Pooling
 
-In the last few years, experts have used global average pooling (GAP) layers to reduce the total number of parameters in the model.  The [first paper](https://arxiv.org/pdf/1312.4400.pdf) to propose GAP layers designed an architecture where the final max pooling layer contained one activation map for each image category in the dataset.  The max pooling layer was then fed to a GAP layer, which yielded a vector with a single entry for each possible object in the classification task.  The authors then applied a softmax activation function to yield the predicted probability of each class.  If you peek at the [original paper](https://arxiv.org/pdf/1312.4400.pdf), I especially recommend checking out Section 3.2, titled "Global Average Pooling".
+In the last few years, experts have turned to global average pooling (GAP) layers to minimize overfitting by reducing the total number of parameters in the model.  The [first paper](https://arxiv.org/pdf/1312.4400.pdf) to propose GAP layers designed an architecture where the final max pooling layer contained one activation map for each image category in the dataset.  The max pooling layer was then fed to a GAP layer, which yielded a vector with a single entry for each possible object in the classification task.  The authors then applied a softmax activation function to yield the predicted probability of each class.  If you peek at the [original paper](https://arxiv.org/pdf/1312.4400.pdf), I especially recommend checking out Section 3.2, titled "Global Average Pooling".
 
 The [ResNet-50 model](http://ethereon.github.io/netscope/#/gist/db945b393d40bfa26006) takes a less extreme approach; instead of getting rid of dense layers altogether, its final convolutional layer is fed to a GAP layer, followed by one densely connected layer with a softmax activation function that yields the predicted object classes.  
 
-In mid-2016, [researchers at MIT](http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf) demonstrated that CNNs with GAP layers (a.k.a. GAP-CNNs) that have been trained for a classification task can also be used for [object localization](https://www.youtube.com/watch?v=fZvOy0VXWAI).  That is, a GAP-CNN not only tells us *what* object is contained in the image - it also tells us *where* the object is in the image, and through no additional work on our part!  The localization is expressed as a heat map (henceforth referred to as a __class activation map__), where the color-coding scheme identifies regions that are relatively important for the GAP-CNN to perform the object identification task.  Please check out the YouTube video below for an _awesome_ demo!
+#### Object Localization
+
+In mid-2016, [researchers at MIT](http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf) demonstrated that CNNs with GAP layers (a.k.a. GAP-CNNs) that have been trained for a classification task can also be used for [object localization](https://www.youtube.com/watch?v=fZvOy0VXWAI).  That is, a GAP-CNN not only tells us *what* object is contained in the image - it also tells us *where* the object is in the image, and through no additional work on our part!  The localization is expressed as a heat map (referred to as a __class activation map__), where the color-coding scheme identifies regions that are relatively important for the GAP-CNN to perform the object identification task.  Please check out the YouTube video below for an _awesome_ demo!
 
 <iframe width="560" height="315" style="padding:0px 0px 20px 0px;" src="https://www.youtube.com/embed/fZvOy0VXWAI?rel=0" frameborder="0" allowfullscreen></iframe>
 
@@ -46,7 +48,7 @@ Next, we look at the class that is predicted by the model.  The output node corr
 
 $$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}$$.
 
-This sum is a $$224\times 224$$ array corresponding to the class activation map.  You can plot these class activation maps for as many images as you like, to explore the localization ability of ResNet-50.
+This sum is the $$224\times 224$$ class activation map.  You can plot these class activation maps for as many images as you like, to explore the localization ability of ResNet-50.
 
 ![Dog Localization]({{ site.url }}/assets/dog_localization.png)
 
