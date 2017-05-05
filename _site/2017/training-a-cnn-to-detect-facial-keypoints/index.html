@@ -162,28 +162,23 @@
   
 
   <section class="post">
-    <p>In this blog post, I will show you how to use deep learning to detect facial keypoints in images.  The dataset we’ll use was featured on <a href="link">Kaggle</a> a few months ago, and can be downloaded <a href="link">here</a>.</p>
+    <p>In this blog post, I will outline a procedure for using deep learning to detect facial keypoints in images.  The dataset was featured on <a href="https://www.kaggle.com/c/facial-keypoints-detection">Kaggle</a> a few months ago, and can be downloaded <a href="https://www.kaggle.com/c/facial-keypoints-detection/data">here</a>.</p>
 
-<p>The data is composed of <script type="math/tex">96 \times 96</script> grayscale images of cropped human faces, along with 15 corresponding facial landmarks, reported in (<script type="math/tex">x, y</script>) coordinates.  I’ve visualized some of the data below, where you can see that there are two landmarks per eyebrow (<strong>four</strong> total), three per eye (<strong>six</strong> total), <strong>four</strong> for the mouth, and <strong>one</strong> for the tip of the nose.</p>
+<p>The data is composed of <script type="math/tex">96 \times 96</script> grayscale images of cropped human faces, along with 15 corresponding facial landmarks, reported in (<script type="math/tex">x, y</script>) coordinates.  I’ve visualized some of the data below, and you can see that there are two landmarks per eyebrow (<strong>four</strong> total), three per eye (<strong>six</strong> total), <strong>four</strong> for the mouth, and <strong>one</strong> for the tip of the nose.</p>
 
 <p><img src="http://localhost:4000/assets/facial_keypoints.png" alt="facial keypoints" /></p>
 
 <p>The goal is to create an automated system that can learn from the patterns in this data, in order to predict the facial landmarks in new images.</p>
 
-<p>We’ll train a convolutional neural network (CNN) composed of stacks of layers.  The CNN will take an image as input, and its final layer will output a vector with 30 entries, corresponding to the model’s predicted locations of each of the 15 facial keypoints.  The CNN will contain over 7 million weights that we’ll fit to discovered patterns in the training data.</p>
+<p>We’ll train a convolutional neural network (CNN) composed of stacks of layers.  The CNN will take an image as input, and its final layer will output a vector with 30 entries, corresponding to the model’s predicted locations of each of the 15 facial keypoints.  The CNN contains over 7 million weights that we’ll fit to the training data.</p>
 
 <p><img src="http://localhost:4000/assets/keypoints_CNN.png" alt="keypoints CNN" /></p>
 
-<p>We assess the suitability of any candidate collection of model weights according to the mean squared error (MSE) loss function.  MSE is a function of the model weights and is calculated as follows:</p>
+<p>We assess the suitability of any candidate collection of model weights according to the mean squared error (MSE) loss function.  <a href="https://en.wikipedia.org/wiki/Mean_squared_error">MSE</a> is minimized when the weights yield a model with predictions that line up well with the true values of the facial keypoints.  Thus, during the training process, we’ll search for the weights that minimize MSE.</p>
 
-<p>This is a draft :)
-(write as a function of the model weights)</p>
+<p>There are many different optimizers in Keras that can be used to find the weights to minimize MSE; I use stochastic gradient descent, but feel free to experiment with the <a href="https://keras.io/optimizers/">others</a>.</p>
 
-<p>where x is blah and y is blah.  MSE is minimized when the weights yield a model with predictions that line up well with the true values of the facial keypoints.  Thus, during the training process, we’ll search for the weights that minimize the MSE.</p>
-
-<p>There are many different optimizers in Keras that can be used to find the weights to minimize MSE; I use stochastic gradient descent, but feel free to experiment with the <a href="link">others</a>.</p>
-
-<p>Once we have the weights, we’ll use them to predict the locations of the facial landmarks on new images!  The <a href="link">code</a> in the repository should just be used as a starting point, to get you up and running.  After all, I only run the notebook for 5 epochs.  In practice, you’ll have to train the network for much longer.</p>
+<p>Once we have the weights, we’ll use them to predict the locations of the facial landmarks on new images!  The <a href="https://github.com/alexisbcook/facial-keypoints-CNN">code</a> in the repository should just be used as a starting point, to get you up and running.  After all, I only run the notebook for 5 epochs.  In practice, you’ll have to train the network for much longer.</p>
 
 <p>I am a <strong>huge advocate</strong> of constructing an end-to-end pipeline before engaging in extensive hyperparameter tuning.  Don’t limit yourself to this clean dataset of cropped grayscale faces!  Wouldn’t it be much more <em>rewarding</em> to build an algorithm that could extract meaningful information from uncropped color images, or (if you’re feeling slightly more ambitious ;)) your webcam?</p>
 
@@ -196,16 +191,9 @@
   <li>Overlay the facial keypoints in the original (color, uncropped) image.</li>
 </ol>
 
-<p>The CNN really only gives you Step 4, but the others are quick to fill in with OpenCV.  Steps 1-2 are quick one-liners, and Steps 3-5 use a pre-trained Haar cascade classifier that is easily accessed <a href="link">here</a>.</p>
+<p>The CNN really only gives you Step 4, but the others are quick to fill in with OpenCV.  Steps 1-2 are quick one-liners, and Steps 3-5 use a pre-trained <a href="http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html">Haar cascade classifier</a> that is easily accessed <a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">here</a>.</p>
 
-<p>I’ve added this code to the <a href="link">repository</a>, and I hope you enjoy!  Please let me know if you end up using it to add a Snapchat-like filter :).</p>
-
-<p>To get up-and-running quickly, you can run these commands in the terminal:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>git clone path-to-repo
-cd repo
-python face_keypoints.py name-of-image
-</code></pre>
-</div>
+<p>I’m planning to add this additional code to the <a href="https://github.com/alexisbcook/facial-keypoints-CNN">repository</a> sometime soon, but if you’re just interested in the CNN, the code is ready for you!</p>
 
 
   </section>
