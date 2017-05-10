@@ -162,9 +162,7 @@
   
 
   <section class="post">
-    <p>In this blog post, I will show you how to <em>efficiently</em> use deep learning to train an algorithm to perform object classification.  This blog post is inspired by a <a href="https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366">Medium post</a> that made use of Tensorflow.  I will adapt the code to Keras (version 2.0.2), and all code will be written in Python 3.5.</p>
-
-<p>I will assume that you are already familiar with the ideas behind convolutional neural networks (CNNs) and transfer learning, and will focus on discussing the details of my code in Keras.</p>
+    <p>In this blog post, I will detail my <a href="https://github.com/alexisbcook/keras_transfer_cifar10">repository</a> that performs object classification with transfer learning.  This blog post is inspired by a <a href="https://medium.com/@st553/using-transfer-learning-to-classify-images-with-tensorflow-b0f3142b9366">Medium post</a> that made use of Tensorflow.  The code is written in Keras (version 2.0.2) and Python 3.5.</p>
 
 <p>If you need to learn more about CNNs, I recommend reading the notes for the <a href="http://cs231n.github.io/convolutional-networks/">CS231n</a> course at Stanford.  All lectures are also available <a href="https://www.youtube.com/watch?v=LxfUGhug-iQ&amp;list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC&amp;index=7">online</a>.  You are also encouraged to check out Term 2 of Udacity’s <a href="https://www.udacity.com/course/artificial-intelligence-nanodegree--nd889">Artificial Intelligence Nanodegree</a>, where you can find a comprehensive introduction to neural networks (NNs), CNNs (including transfer learning), and recurrent neural networks (RNNs).</p>
 
@@ -205,17 +203,15 @@
 
 <h4 id="using-t-sne-to-visualize-bottleneck-features">Using t-SNE to Visualize Bottleneck Features</h4>
 
-<p>Towards visualizing the bottleneck features, I use a dimensionality reduction technique called <a href="http://distill.pub/2016/misread-tsne/">t-SNE</a> (aka t-Distributed Stochastic Neighbor Embedding).  t-SNE reduces the dimensionality of each point, in a way where the points in the lower-dimensional space preserve the pointwise distances from the original, higher-dimensional space.  Scikit-learn <a href="http://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">has an implementation</a> of t-SNE, but it is too slow for our purposes.  Instead, to work with our very large, highly dimensional dataset, you’ll need to work with a faster implementation.  The implementation you’re encouraged to use is found <a href="https://github.com/alexisbcook/tsne">on github</a> and can be installed by running <code class="highlighter-rouge">pip install git+https://github.com/alexisbcook/tsne.git</code> in the terminal.</p>
+<p>Towards visualizing the bottleneck features, I used a dimensionality reduction technique called <a href="http://distill.pub/2016/misread-tsne/">t-SNE</a> (aka t-Distributed Stochastic Neighbor Embedding).  t-SNE reduces the dimensionality of each point, in a way where the points in the lower-dimensional space preserve the pointwise distances from the original, higher-dimensional space.  Scikit-learn <a href="http://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">has an implementation</a> of t-SNE, but it does not scale well to large datasets.  Instead, I worked with an implementation that can be found <a href="https://github.com/alexisbcook/tsne">on github</a>; it can be installed by running <code class="highlighter-rouge">pip install git+https://github.com/alexisbcook/tsne.git</code> in the terminal.</p>
 
-<p>After plotting the resulting 2-dimensional points, color-coded by label, we get the plot below.</p>
+<p>Visualizing the resulting 2-dimensional points yields the plot below, where points are color-coded according to the object class contained in the corresponding image.</p>
 
 <p><img src="http://localhost:4000/assets/tsne.png" alt="t-sne plot for transfer learning on cifar-10" /></p>
 
-<p>InceptionV3 does an amazing job with teasing out the content in the image, where points containing objects from the same class are mostly confined to nearby regions in the 2D plot.</p>
+<p>InceptionV3 does an amazing job with teasing out the content in the image, where points containing objects from the same class are mostly confined to nearby regions in the 2D plot.  Thus, training a classifier on the bottleneck features should yield good performance.</p>
 
 <h4 id="performing-classification-with-transfer-learning">Performing Classification with Transfer Learning</h4>
-
-<p>So far, we have passed each of the 32x32x2 color images through a pre-trained CNN to extract their corresponding bottleneck features.  In this way, we have converted the array of raw image pixels to a representation that encodes the content of the image.  By visualizing a low-dimensional representation of the bottleneck features, we see that training a classifier on the bottleneck features should yield good performance.</p>
 
 <p>In the Jupyter notebook in the repository, I trained a very shallow CNN on the bottleneck features.  It yields a test accuracy of 82.68%! :)</p>
 
