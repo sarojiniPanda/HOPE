@@ -2,7 +2,7 @@
 title: Alexis Cook
 description: 'Deep Learning Professional'
 url: 'https://alexisbcook.github.io'
-baseurl: '/'
+baseurl: ''
 google_analytics: 'UA-83225772-1'
 disqus_shortname: 'alexisbcook-github-io'
 
@@ -28,6 +28,10 @@ paginate: 10
 permalink: /:year/:title/
 markdown: kramdown
 highlighter: rouge
+
+sass:
+    sass_dir: _sass
+    style: compressed
 
 kramdown:
   # use Github Flavored Markdown

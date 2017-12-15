@@ -3,11 +3,11 @@
   <channel>
     <title>Alexis Cook</title>
     <description>Deep Learning Professional</description>
-    <link>http://localhost:4000//</link>
-    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 15 Dec 2017 00:18:44 -0600</pubDate>
-    <lastBuildDate>Fri, 15 Dec 2017 00:18:44 -0600</lastBuildDate>
-    <generator>Jekyll v3.4.3</generator>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Fri, 15 Dec 2017 00:45:33 -0600</pubDate>
+    <lastBuildDate>Fri, 15 Dec 2017 00:45:33 -0600</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>Global Average Pooling Layers for Object Localization</title>
@@ -84,8 +84,8 @@
 &lt;p&gt;If you’d like to use this code to do your own object localization, you need only download the &lt;a href=&quot;https://github.com/alexisbcook/ResNetCAM-keras&quot;&gt;repository&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sun, 09 Apr 2017 06:39:23 -0500</pubDate>
-        <link>http://localhost:4000//2017/global-average-pooling-layers-for-object-localization/</link>
-        <guid isPermaLink="true">http://localhost:4000//2017/global-average-pooling-layers-for-object-localization/</guid>
+        <link>http://localhost:4000/2017/global-average-pooling-layers-for-object-localization/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/global-average-pooling-layers-for-object-localization/</guid>
         
         <category>keras</category>
         
@@ -156,8 +156,8 @@
 &lt;p&gt;Can you do better with other architectures?  Feel free to download the &lt;a href=&quot;https://github.com/alexisbcook/keras_transfer_cifar10&quot;&gt;repository&lt;/a&gt; on GitHub and try your own hand at transfer learning!&lt;/p&gt;
 </description>
         <pubDate>Sat, 08 Apr 2017 06:39:23 -0500</pubDate>
-        <link>http://localhost:4000//2017/using-transfer-learning-to-classify-images-with-keras/</link>
-        <guid isPermaLink="true">http://localhost:4000//2017/using-transfer-learning-to-classify-images-with-keras/</guid>
+        <link>http://localhost:4000/2017/using-transfer-learning-to-classify-images-with-keras/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/using-transfer-learning-to-classify-images-with-keras/</guid>
         
         <category>keras</category>
         

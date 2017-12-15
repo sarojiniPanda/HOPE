@@ -1,5 +1,8 @@
-@import url(uno.css);
-@import url(monokai.css);
+---
+---
+@import "uno";
+@import "tables";
+@import "monokai";
 
 /* Modifications */
 
@@ -13,7 +16,7 @@ pre.highlight code,
   white-space: pre-wrap;
 }
 
-.btn, 
+.btn,
 .navigation__item a {
   margin: 5px 0;
   white-space: nowrap;
@@ -54,26 +57,3 @@ pre.highlight code,
   border: 3px solid #fff;
   border-radius:100%;
 }
-
-
-
-
-.share-page {
-    text-align: center;
-    background: $secondary-color;
-    color: $light-color;
-    padding: 8px 15px;
-    border-radius: 5px;
-    margin: 1.5 * $spacing-unit 0;
-
-    a {
-        font-weight: 700;
-        color: #fff;
-        margin-left: 10px;
-
-        &:hover {
-            border-bottom: 1px dashed #fff;
-        }
-    }
-}
-
