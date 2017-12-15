@@ -6,13 +6,13 @@ tags: [keras, localization]
 use_math: true
 ---
 
-For image classification tasks, a common choice for CNN architecture is repeated blocks of convolution and maxpooling layers, followed by two or more densely connected layers.  The final dense layer has a softmax activation function and a node for each potential object category.  
+For image classification tasks, a common choice for convolutional neural network (CNN) architecture is repeated blocks of convolution and max pooling layers, followed by two or more densely connected layers.  The final dense layer has a softmax activation function and a node for each potential object category.  
 
 As an example, consider the VGG-16 model architecture, depicted in the figure below.
 
 ![vgg-16 model]({{ site.url }}/assets/vgg16.png)
 
-We can also summarize the layers of the VGG-16 model by executing the following line of code in the terminal:
+We can summarize the layers of the VGG-16 model by executing the following line of code in the terminal:
 
 ```	python
 python -c 'from keras.applications.vgg16 import VGG16; VGG16().summary()'
@@ -28,9 +28,13 @@ As you can probably imagine, an architecture like this has the risk of overfitti
 
 #### Global Average Pooling
 
-In the last few years, experts have turned to global average pooling (GAP) layers to minimize overfitting by reducing the total number of parameters in the model.  The [first paper](https://arxiv.org/pdf/1312.4400.pdf) to propose GAP layers designed an architecture where the final max pooling layer contained one activation map for each image category in the dataset.  The max pooling layer was then fed to a GAP layer, which yielded a vector with a single entry for each possible object in the classification task.  The authors then applied a softmax activation function to yield the predicted probability of each class.  If you peek at the [original paper](https://arxiv.org/pdf/1312.4400.pdf), I especially recommend checking out Section 3.2, titled "Global Average Pooling".
+In the last few years, experts have turned to global average pooling (GAP) layers to minimize overfitting by reducing the total number of parameters in the model.  Similar to max pooling layers, GAP layers are used to reduce the spatial dimensions of a three-dimensional tensor.  However, GAP layers perform a more extreme type of dimensionality reduction, where a tensor with dimensions $$h \times w \times d$$ is reduced in size to have dimensions $$1 \times 1 \times d$$.  GAP layers reduce each $$h \times w$$ feature map to a single number by simply taking the average of all $$hw$$ values.
 
-The [ResNet-50 model](http://ethereon.github.io/netscope/#/gist/db945b393d40bfa26006) takes a less extreme approach; instead of getting rid of dense layers altogether, its final convolutional layer is fed to a GAP layer, followed by one densely connected layer with a softmax activation function that yields the predicted object classes.  
+![global average pooling]({{ site.url }}/assets/global_average_pooling.png)
+
+The [first paper](https://arxiv.org/pdf/1312.4400.pdf) to propose GAP layers designed an architecture where the final max pooling layer contained one activation map for each image category in the dataset.  The max pooling layer was then fed to a GAP layer, which yielded a vector with a single entry for each possible object in the classification task.  The authors then applied a softmax activation function to yield the predicted probability of each class.  If you peek at the [original paper](https://arxiv.org/pdf/1312.4400.pdf), I especially recommend checking out Section 3.2, titled "Global Average Pooling".
+
+The [ResNet-50 model](http://ethereon.github.io/netscope/#/gist/db945b393d40bfa26006) takes a less extreme approach; instead of getting rid of dense layers altogether, the GAP layer is followed by one densely connected layer with a softmax activation function that yields the predicted object classes.  
 
 #### Object Localization
 
@@ -38,17 +42,38 @@ In mid-2016, [researchers at MIT](http://cnnlocalization.csail.mit.edu/Zhou_Lear
 
 <iframe width="560" height="315" style="padding:0px 0px 20px 0px;" src="https://www.youtube.com/embed/fZvOy0VXWAI?rel=0" frameborder="0" allowfullscreen></iframe>
 
-In the [repository](https://github.com/alexisbcook/ResNetCAM-keras), I have explored the localization ability of the pre-trained ResNet-50 model, using the technique from [this paper](http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf).  The main idea is that each of the activation maps in the final convolutional layer acts as a detector for a different pattern in the image, localized in space.  To get the _class_ activation map corresponding to an image, we need only to translate these detected patterns to detected objects.  This translation is done by noticing each node in the GAP layer corresponds to a different activation map, and that the weights in the final dense layer encode each activation map's contribution to the predicted object class.  We can thus sum the contributions of each of the detected patterns in the activation maps (from the final convolutional layer), where detected patterns that are more important to the predicted object class are given more weight.  
+In the [repository](https://github.com/alexisbcook/ResNetCAM-keras), I have explored the localization ability of the pre-trained ResNet-50 model, using the technique from [this paper](http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf).  The main idea is that each of the activation maps in the final layer preceding the GAP layer acts as a detector for a different pattern in the image, localized in space.  To get the class activation map corresponding to an image, we need only to transform these detected patterns to detected objects.   
+
+
+This transformation is done by noticing each node in the GAP layer corresponds to a different activation map, and that the weights connecting the GAP layer to the final dense layer encode each activation map's contribution to the predicted object class.  To obtain the class activation map, we sum the contributions of each of the detected patterns in the activation maps, where detected patterns that are more important to the predicted object class are given more weight.  
 
 #### How the Code Operates
 
-Let $$f_k$$ represent the $$k$$-th activation map in the final convolutional layer.  In the pre-trained ResNet-50 model, the last convolutional layer contains 2048 activation maps, each 7 pixels high and 7 pixels wide.  So, $$f_0$$ is $$7\times7$$ pixels and is the first activation map in the convolutional layer, $$f_1$$ is also $$7\times7$$ pixels and is the second activation map, and so on, where $$f_{2047}$$ is likewise $$7\times7$$ pixels and is the final activation map.  In order to permit comparison to the original image, [bilinear upsampling](https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.ndimage.zoom.html#scipy.ndimage.zoom) is used to resize each activation map to $$224 \times 224$$.
+Let's examine the ResNet-50 architecture by executing the following line of code in the terminal:
 
-Next, we look at the class that is predicted by the model.  The output node corresponding to the predicted class is connected to every node in the GAP layer.  Let $$w_i$$ represent the weight connecting the $$i$$-th node in the GAP layer to the output node corresponding to the predicted dog breed.  Then, in order to obtain the class activation map, we need only compute the sum
+```	python
+python -c 'from keras.applications.resnet50 import ResNet50; ResNet50().summary()'
+```
 
-$$w_0 \cdot f_0 + w_1 \cdot f_1 + \ldots + w_{2047} \cdot f_{2047}$$.
+The final few lines of output should appear as follows (_Notice that unlike the VGG-16 model, the majority of the trainable parameters are not located in the fully connected layers at the top of the network!_):
 
-This sum is the $$224\times 224$$ class activation map.  You can plot these class activation maps for as many images as you like, to explore the localization ability of ResNet-50.
+![resnet-50 layers in Keras]({{ site.url }}/assets/resnet50_keras.png)
+
+The `Activation`, `AveragePooling2D`, and `Dense` layers towards the end of the network are of the most interest to us.  Note that the `AveragePooling2D` layer is in fact a GAP layer!
+
+We'll begin with the `Activation` layer.  This layer contains 2048 activation maps, each with dimensions $$7\times7$$.  Let $$f_k$$ represent the $$k$$-th activation map, where $$k \in \{1, \ldots, 2048\}$$.  
+
+The following `AveragePooling2D` GAP layer reduces the size of the preceding layer to $$(1,1,2048)$$ by taking the average of each feature map.  The next `Flatten` layer merely flattens the input, without resulting in any change to the information contained in the previous GAP layer.
+
+The object category predicted by ResNet-50 corresponds to a single node in the final `Dense` layer; and, this single node is connected to every node in the preceding `Flatten` layer.  Let $$w_k$$ represent the weight connecting the $$k$$-th node in the `Flatten` layer to the output node corresponding to the predicted image category.  
+
+![class activation mapping]({{ site.url }}/assets/class_activation_mapping.png)
+
+Then, in order to obtain the class activation map, we need only compute the sum
+
+$$w_1 \cdot f_1 + w_2 \cdot f_2 + \ldots + w_{2048} \cdot f_{2048}$$.
+
+You can plot these class activation maps for any image of your choosing, to explore the localization ability of ResNet-50.  Note that in order to permit comparison to the original image, [bilinear upsampling](https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.ndimage.zoom.html#scipy.ndimage.zoom) is used to resize each activation map to $$224 \times 224$$.  (This results in a class activation map with size $$224 \times 224$$.)
 
 ![Dog Localization]({{ site.url }}/assets/dog_localization.png)
 
