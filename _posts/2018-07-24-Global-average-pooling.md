@@ -1,6 +1,6 @@
 ---
 title:  "Global Average Pooling Layers for Object Localization"
-date:   2017-04-09 11:39:23
+date:   2017-07-24 11:39:23
 categories: [keras] 
 tags: [keras, localization]
 use_math: true
