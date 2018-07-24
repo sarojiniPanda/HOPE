@@ -1,18 +1,18 @@
 # Site settings
-title: Alexis Cook
-description: 'Deep Learning Professional'
-url: 'https://alexisbcook.github.io'
+title: Pradeep Pujari ...
+description: 'Machine Learning Engineer @WalmartLabs . '
+url: 'https://sarojiniPanda/HOPE.github.io'
 baseurl: ''
 google_analytics: 'UA-83225772-1'
-disqus_shortname: 'alexisbcook-github-io'
+disqus_shortname: 'HOPE-github-io'
 
 author:
-  name: 'Alexis Cook'
-  email: alexis.cook@gmail.com
-  twitter_username: alexis_b_cook
-  facebook_username: alexis.cook
-  github_username:  alexisbcook
-  linkedin_username:  alexis-cook-a6127753
+  name: 'Pradeep Pujari'
+  email: ppujari@gmail.com
+  twitter_username: ppujari_t_cook
+  facebook_username:ppujari.f
+  github_username:  ppujaricook
+  linkedin_username:  ppujari.l
 
 defaults:
   -
