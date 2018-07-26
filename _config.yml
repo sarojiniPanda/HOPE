@@ -14,7 +14,6 @@ author:
   github_username:  ppujaricook
   linkedin_username:  ppujari.l
 
-
 defaults:
   -
     scope:
@@ -42,5 +41,3 @@ kramdown:
 
 gems: ['jekyll-paginate']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
-
-theme: jekyll-theme-time-machine
