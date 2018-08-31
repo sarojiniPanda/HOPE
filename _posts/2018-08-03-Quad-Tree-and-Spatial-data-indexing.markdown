@@ -10,3 +10,4 @@ People who analyze algorithms have double happiness. First of all they experienc
 Binary Tree is characterized by any one of the following properties.
 It can be empty i.e. null
 it contains a root node and at most two sub trees left sub tree and right sub tree. These sub trees are also binary tree.
+clik here to veiw full link https://medium.com/@ppujari/quad-tree-and-spatial-data-indexing-88b12a87dfd9
